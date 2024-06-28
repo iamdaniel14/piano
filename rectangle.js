@@ -9,12 +9,11 @@
   this.col=col;
   this.note=note;
   this.noteName =noteName;
-    
   this.osc=new p5.Oscillator();
-    this.osc.start ();
+  this.osc.start ();
   this.osc.amp(0);
-  this.osc.freq(midiToFreq(this.note))
-    
+  this.osc.freq(midiToFreq(this.note));
+
   }
    
    
@@ -22,14 +21,13 @@
   fill(this.col)
   rect (this.x,this.y,this.w, this.h);
   textSize (20);
-  fill ("grey")
-     
+  fill ("grey")  
  text (this.noteName,this.x,this.y+this.h*0.8)
   
    }
    
-   playSound (){
-     
+   playSound (wave_type){
+   this.osc.setType (wave_type) 
    this.osc.amp(1,0.1)
    }
    

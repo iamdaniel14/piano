@@ -3,7 +3,7 @@
 //01/06/2024
 
 
-
+let waveType;
 
 const NOTE_NAME =["C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G5","A4","B4","C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6","A6","B6"];
 
@@ -11,10 +11,17 @@ const NOTE_NAME =["C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G5","A
 const MID_NOTE_NUMBER_WHITE_KEY= [48,50,52,53,55,57,59,60,62,64,65,67,69,71,72,74,76,77,79,81,83,84,86,88,89,91,93,95];
 const MID_NOTE_NUMBER_BLACK_KEY= [49,51,54,56,58,61,63,66,68,70,73,75,78,80,80,82,85,87,90,92,94];
 
+const SELECT_WAVE=document.querySelector (".select_wave");
+const BUTTON=document.querySelector (".wave_button");
+BUTTON.addEventListener ("click", ()=>{
+waveType=SELECT_WAVE.value;
+
+})
+
+
 
 
   let osc;
-  let emitter =[];
   let rectangle=[];
   let blackRect=[]
   let rectScale=50;
@@ -22,7 +29,7 @@ const MID_NOTE_NUMBER_BLACK_KEY= [49,51,54,56,58,61,63,66,68,70,73,75,78,80,80,8
   let total=7 *octave;  // one octave has 7  keys 
    function setup() {
   createCanvas(windowWidth,windowHeight);
-  
+
   for (let i=0; i<total;i++) {
   rectangle.push(new Keys (i*rectScale,height*0.5,rectScale,rectScale*4, "white",MID_NOTE_NUMBER_WHITE_KEY[i],NOTE_NAME[i]));    
    }
@@ -38,16 +45,9 @@ const MID_NOTE_NUMBER_BLACK_KEY= [49,51,54,56,58,61,63,66,68,70,73,75,78,80,80,8
      
      
    }
-  function mousePressed (){
-    
-    
-
-   
-   }
-
+  
   function draw() {
   background(220);
- 
  let blackKeyIsActive=false;
  let  mousePosition=createVector(mouseX,mouseY);
 
@@ -55,7 +55,7 @@ const MID_NOTE_NUMBER_BLACK_KEY= [49,51,54,56,58,61,63,66,68,70,73,75,78,80,80,8
   {if (mouseIsPressed &&mousePosition.x>=blackRect[j].x&&mousePosition.x<=blackRect[j].x+blackRect[j].w&&mousePosition.y>=blackRect[j].y&&mousePosition.y<=blackRect[j].y+blackRect[j].h  ) { // if the mouse is inside the black key
   blackRect[j].col="red" ;
   blackKeyIsActive=true;  
-  blackRect[j].playSound ();
+  blackRect[j].playSound (waveType);
 
     }  else {
       
@@ -67,7 +67,8 @@ const MID_NOTE_NUMBER_BLACK_KEY= [49,51,54,56,58,61,63,66,68,70,73,75,78,80,80,8
    for (let i=0; i<rectangle.length; i++) {
   {if (mouseIsPressed &&  mousePosition.x>= rectangle[i].x&&mousePosition.x<= rectangle[i].x+ rectangle[i].w&&mousePosition.y>= rectangle[i].y&&mousePosition.y<= rectangle[i].y+rectangle[i].h && !blackKeyIsActive) {
   rectangle[i].col="yellow";
-  rectangle[i].playSound ();
+  rectangle[i].playSound (waveType);
+
 
   
     } else {
@@ -85,12 +86,5 @@ const MID_NOTE_NUMBER_BLACK_KEY= [49,51,54,56,58,61,63,66,68,70,73,75,78,80,80,8
   blackRect[j].show();
 
     }  
-   
-   for (let i=0; i<emitter.length;i++) {
- emitter [i].update(); 
- emitter[i].explode();
- emitter [i].show();
- }
-   }
-    
-}
+ 
+  }}

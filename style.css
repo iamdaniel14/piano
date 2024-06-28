@@ -5,3 +5,9 @@ html, body {
 canvas {
   display: block;
 }
+
+.menu_container{
+display: flex;
+
+
+}
