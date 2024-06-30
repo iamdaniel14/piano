@@ -3,7 +3,7 @@
 //01/06/2024
 
 
-let waveType;
+let waveType="triangle";
 
 let particles=[];
 
