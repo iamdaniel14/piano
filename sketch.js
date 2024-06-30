@@ -14,9 +14,13 @@ const MID_NOTE_NUMBER_WHITE_KEY= [48,50,52,53,55,57,59,60,62,64,65,67,69,71,72,7
 const MID_NOTE_NUMBER_BLACK_KEY= [49,51,54,56,58,61,63,66,68,70,73,75,78,80,80,82,85,87,90,92,94,97,99];
 
 const SELECT_WAVE=document.querySelector (".select_wave");
-const BUTTON=document.querySelector (".wave_button");
-BUTTON.addEventListener ("click", ()=>{
-waveType=SELECT_WAVE.value;
+// const BUTTON=document.querySelector (".wave_button");
+document.addEventListener ("DOMContentLoaded", (event)=>{
+  const SELECT_WAVE=document.querySelector (".select_wave");
+  SELECT_WAVE.addEventListener("change", (event)=>{
+
+   waveType=event.target.value;
+  })
 
 })
 
@@ -26,24 +30,22 @@ waveType=SELECT_WAVE.value;
   let osc;
   let rectangle=[];
   let blackRect=[]
-  let rectScale=50;
+  let rectScale;
   let octave=5;
-  let total=7 *octave;  // one octave has 7  keys 
+  let numberOfKeys=7;
+  let total=numberOfKeys*octave;  // one octave has 7  white keys  and 5 white keys
    function setup() {
   createCanvas(windowWidth,windowHeight);
 
-
-
-  for (let i=0; i<total;i++) {
-  rectangle.push(new Keys (i*rectScale,height*0.6,rectScale,rectScale*4, "white",MID_NOTE_NUMBER_WHITE_KEY[i],NOTE_NAME[i]));    
-   }
-     
-     
-     
-  for (let i=0; i<total;i++) {
+let w=windowWidth;
+    rectScale=Math.floor((w/octave)/7); //rect scale in relationship with window width ,number of octave ,number of keys
+         for (let i=0; i<total;i++) {
+        rectangle.push(new Keys (i*rectScale,height*0.6,rectScale,rectScale*4, "white",MID_NOTE_NUMBER_WHITE_KEY[i],NOTE_NAME[i]));    
+         }
     
-  if (i%7!==2 && i%7 !==6  ){ // if the reminder is not 2 and 6
-  blackRect.push (new Keys  (i*rectScale+rectScale*0.7,height*0.6,rectScale*0.5,rectScale*2,"black",MID_NOTE_NUMBER_BLACK_KEY[i]));    
+  for (let i=0; i<total;i++) {
+        if (i%7!==2 && i%7 !==6  ){ // if the reminder is not 2 and 6
+        blackRect.push (new Keys  (i*rectScale+rectScale*0.7,height*0.6,rectScale*0.5,rectScale*2,"black",MID_NOTE_NUMBER_BLACK_KEY[i]));    
    } 
   }
      
@@ -65,7 +67,7 @@ waveType=SELECT_WAVE.value;
 
   for (let j=0; j<blackRect.length; j++) 
   {if (mouseIsPressed &&mousePosition.x>=blackRect[j].x&&mousePosition.x<=blackRect[j].x+blackRect[j].w&&mousePosition.y>=blackRect[j].y&&mousePosition.y<=blackRect[j].y+blackRect[j].h  ) { // if the mouse is inside the black key
-  blackRect[j].col="red" ;
+  blackRect[j].col=("Plum") ;
   blackKeyIsActive=true;  
   blackRect[j].playSound (waveType);
   particles.push(new Particles (blackRect[j].x+blackRect[j].w/2,100));
@@ -81,7 +83,7 @@ console.log(blackRect[j].x+blackRect[j].w)
     
    for (let i=0; i<rectangle.length; i++) {
   {if (mouseIsPressed &&  mousePosition.x>= rectangle[i].x&&mousePosition.x<= rectangle[i].x+ rectangle[i].w&&mousePosition.y>= rectangle[i].y&&mousePosition.y<= rectangle[i].y+rectangle[i].h && !blackKeyIsActive) {
-  rectangle[i].col="yellow";
+  rectangle[i].col="Lavender";
   rectangle[i].playSound (waveType);
 
 

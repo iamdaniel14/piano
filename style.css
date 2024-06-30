@@ -8,12 +8,20 @@ canvas {
 
 .menu_container{
 display: flex;
+}
+.select-container{
+  padding-left: 100px;
+}
 
-
+.select_wave{
+ font-size: 20px;
 }
 .page-title{
   font-size: 50px;
   padding-left: 100px;
+}
 
+.name_of_the_author{
+font-size:20px;
 
 }
