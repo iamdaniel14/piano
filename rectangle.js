@@ -15,7 +15,7 @@
   this.attack=0.01;
   this.decay=0.1; 
   this.sustain=0.2;
-  this.release =0.1;
+  this.release =0;
 
 this.envelope=new p5.Envelope ();
 this.envelope.setADSR (this.attack,this.decay,this.sustain, this.release);
