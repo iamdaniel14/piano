@@ -71,8 +71,7 @@ let w=windowWidth;
   blackKeyIsActive=true;  
   blackRect[j].playSound (waveType);
   particles.push(new Particles (blackRect[j].x+blackRect[j].w/2,100));
-  console.log (blackRect[j].x)
-console.log(blackRect[j].x+blackRect[j].w)
+ 
 
     }  else {
       
